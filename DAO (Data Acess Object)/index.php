@@ -29,9 +29,9 @@ require_once("config.php");
 // Lista de usuarios
 
 
-// $lista =  Usuario::getList();
+$lista =  Usuario::getList("tb_usuarios");
 
-// echo json_encode($lista);
+echo json_encode($lista);
 
 
 // carrega uma lista de usarios buscando pelo login
@@ -42,9 +42,9 @@ require_once("config.php");
 
 // carrega um usuario usando o login e a senha
 
-$usuario = new Usuario();
-$usuario->login("hydena", "caracas");
-echo $usuario;
+// $usuario = new Usuario();
+// $usuario->login("hydena", "caracas");
+// echo $usuario;
 
 
 

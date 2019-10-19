@@ -51,10 +51,7 @@ class Usuario
         {
             $row = $results[0];
             
-            $this->setIdusuario($row['idusuario']);
-            $this->setDeslogin($row['deslogin']);
-            $this->setDessenha($row['dessenha']);
-            $this->setDtcadastro(new DateTime($row['dtcadastro']));
+            $this->setData($row);
 
         }
     }
@@ -69,19 +66,16 @@ class Usuario
         {
             $row = $results[0];
             
-            $this->setIdusuario($row['idusuario']);
-            $this->setDeslogin($row['deslogin']);
-            $this->setDessenha($row['dessenha']);
-            $this->setDtcadastro(new DateTime($row['dtcadastro']));
+            $this->setData($row);
 
         }
 
     }
 
-    public static function getList()
+    public static function getList($table)
     {
         $sql = new Sql();
-        return $sql->select("SELECT * FROM tb_usuarios ORDER BY deslogin");
+        return $sql->select("SELECT * FROM $table ORDER BY deslogin");
 
     }
 
@@ -105,15 +99,35 @@ class Usuario
         {
             $row = $results[0];
             
-            $this->setIdusuario($row['idusuario']);
-            $this->setDeslogin($row['deslogin']);
-            $this->setDessenha($row['dessenha']);
-            $this->setDtcadastro(new DateTime($row['dtcadastro']));
+            $this->setData($row);
 
         } else 
         {
             throw new Exception("Login ou senha invalidos" );
             
+        }
+    }
+
+    public function setData($data)
+    {
+        $this->setIdusuario($data['idusuario']);
+        $this->setDeslogin($data['deslogin']);
+        $this->setDessenha($data['dessenha']);
+        $this->setDtcadastro(new DateTime($data['dtcadastro']));
+    }
+
+    public function insert()
+    {
+        $sql = new Sql();
+        $results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(
+            ":LOGIN"=>$this->getDeslogin(),
+            ":PASSWORD"=>$this->getDessenha()
+        ));
+
+        if (count($results) > 0)
+        {
+            $row = $results[0];            
+            $this->setData($row);
         }
     }
     public function __toString()
