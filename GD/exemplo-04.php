@@ -1,0 +1,32 @@
+<?php
+
+header("Content-type: image/jpeg");
+
+$file = "img/wallpaper.jpg";
+
+$new_width = 2500;
+$new_height = 1080;
+// var_dump(getimagesize($file));
+
+list($old_width, $old_height) = getimagesize($file);
+
+// echo $old_height;
+// echo $old_width;
+
+//getimagesize($file);
+
+$new_image = imagecreatetruecolor($new_width, $new_height);
+
+$old_image = imagecreatefromjpeg($file);
+
+imagecopyresampled($new_image, $old_image, 0, 0, 0, 0, $new_width, $new_height, $old_width, $old_height);
+
+imagejpeg($new_image);
+
+imagedestroy($old_image);
+
+
+
+
+
+?>

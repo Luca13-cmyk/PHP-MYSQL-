@@ -59,6 +59,25 @@ require_once("config.php");
 // echo "Inserido OK";
 
 
+// atualizando dados na tabela
+
+// $user = new Usuario();
+
+// $user->loadById(6);
+
+// $user->update("Professor", "1234");
+
+// deletando dados na tabela
+
+ $user = new Usuario();
+$user->loadById(7);
+$user->delete();
+
+
+
+// $user->insertPer();
+
+
 
 $lista =  Usuario::getList("tb_usuarios");
 
